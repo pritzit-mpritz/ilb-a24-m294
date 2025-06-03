@@ -1,0 +1,48 @@
+{
+  "movies": [
+    {
+      "id": "1",
+      "title": "Inception",
+      "releaseYear": 2010,
+      "genre": ["Sci-Fi", "Thriller"],
+      "directorId": "1",
+      "actorIds": ["1", "2"],
+      "rating": 8.8
+    },
+    {
+      "id": "2",
+      "title": "The Grand Budapest Hotel",
+      "releaseYear": 2014,
+      "genre": ["Comedy", "Drama"],
+      "directorId": "2",
+      "actorIds": ["3", "4"],
+      "rating": 8.1
+    }
+  ],
+  "directors": [
+    { "id": "1", "name": "Christopher Nolan" },
+    { "id": "2", "name": "Wes Anderson" }
+  ],
+  "actors": [
+    { "id": "1", "name": "Leonardo DiCaprio" },
+    { "id": "2", "name": "Joseph Gordon-Levitt" },
+    { "id": "3", "name": "Ralph Fiennes" },
+    { "id": "4", "name": "Tony Revolori" }
+  ],
+  "reviews": [
+    {
+      "id": "1",
+      "movieId": "1",
+      "author": "filmFan99",
+      "content": "Mind-bending and brilliantly executed.",
+      "rating": 9
+    },
+    {
+      "id": "2",
+      "movieId": "2",
+      "author": "cinemaLover",
+      "content": "Stylish and quirky. Loved it!",
+      "rating": 8
+    }
+  ]
+}

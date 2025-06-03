@@ -1,0 +1,11 @@
+.menu-navlink {
+    color: white;
+    text-decoration: none;
+    &:hover {
+        color: #b4e3e3;
+    }
+}
+
+.menu-navlink.active-link {
+    font-weight: bold;
+}
