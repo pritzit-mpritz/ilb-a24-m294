@@ -9,9 +9,10 @@ import '@fontsource/roboto/700.css';
 
 import {BrowserRouter, Route, Routes} from "react-router";
 import App from "./App.tsx";
-import MovieOverview from "./pages/MovieOverview.tsx";
+import MovieOverview from "./pages/movies/overview/MovieOverview.tsx";
 import ActorOverview from "./pages/ActorOverview.tsx";
 import DirectorOverview from "./pages/DirectorOverview.tsx";
+import MovieForm from "./pages/movies/form/MovieForm.tsx";
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
@@ -19,9 +20,13 @@ createRoot(document.getElementById('root')!).render(
             <Routes>
                 <Route element={<App/>}>
                     <Route path="" element={<h1>Home</h1>}/>
-                    <Route path="movies" element={<MovieOverview />}/>
+                    <Route path="movies" >
+                        <Route index element={<MovieOverview />} />
+                        <Route path="new" element={<MovieForm />} />
+                    </Route>
                     <Route path="actors" element={<ActorOverview />}/>
                     <Route path="directors" element={<DirectorOverview />}/>
+                    <Route path="*" element={<p>This link does not exist</p>}/>
                 </Route>
             </Routes>
         </BrowserRouter>
