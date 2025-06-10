@@ -10,6 +10,9 @@ export interface Movie {
 
 export interface MovieOverviewData {
     movies: Movie[] | null,
+    dialogOpen: boolean,
+    setDialogOpen: (open: boolean) => void,
+    onMovieSaved: () => void | Promise<void>,
     fetchMovies: () => void | Promise<void>,
     deleteMovie: (id: string) => void | Promise<void>,
     navigateToNewMovie: () => void | Promise<void>

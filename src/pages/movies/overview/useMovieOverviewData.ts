@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import type {Movie, MovieOverviewData} from "./MovieTypes.ts";
 import {useNavigate} from "react-router";
+import {deleteMovieById, getMovies} from "../../../data/movies/MovieDataService.ts";
 
 /**
  * A custom hook used to fetch and manage movie overview data. The hook fetches
@@ -10,6 +11,7 @@ import {useNavigate} from "react-router";
  */
 export const useMovieOverviewData = (): MovieOverviewData => {
     const [movies, setMovies] = useState<Movie[] | null>(null);
+    const [dialogOpen, setDialogOpen] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -23,17 +25,13 @@ export const useMovieOverviewData = (): MovieOverviewData => {
      * @return {Promise<void>} A promise that resolves when the movies are successfully fetched and state is updated.
      */
     async function fetchMovies(): Promise<void> {
-        //TODO: Move to DataService
         setMovies(null);
-        setTimeout(async () => {
-            try {
-                const response = await fetch('http://localhost:3000/movies');
-                const data = await response.json();
-                setMovies(data ?? null);
-            } catch (error) {
-                console.log(error);
-            }
-        }, 2000);
+        try {
+            const tempMovies = await getMovies();
+            setMovies(tempMovies);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     const navigateToNewMovie = () => {
@@ -42,8 +40,19 @@ export const useMovieOverviewData = (): MovieOverviewData => {
     }
 
     async function deleteMovie(id: string) {
-        console.log(id);
+        console.log("Deleting Movie" + id);
+        try {
+            await deleteMovieById(id);
+            await fetchMovies();
+        } catch (error) {
+            console.error(error);
+        }
     }
 
-    return {movies, fetchMovies, navigateToNewMovie, deleteMovie};
+    async function onMovieSaved() {
+        setDialogOpen(false);
+        await fetchMovies();
+    }
+
+    return {movies, dialogOpen, setDialogOpen, onMovieSaved, fetchMovies, navigateToNewMovie, deleteMovie};
 }

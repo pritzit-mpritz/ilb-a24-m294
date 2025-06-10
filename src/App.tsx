@@ -10,6 +10,9 @@ function App() {
                     <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
                         ILB A24 M294
                     </Typography>
+                    <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+                        {import.meta.env.VITE_BASE_API}
+                    </Typography>
                     <Stack direction={"row"} spacing={2} justifyContent={"center"}>
                         <NavLink className={({isActive}) => isActive ? "menu-navlink active-link" : "menu-navlink "}
                                  to="/actors">Actors</NavLink>

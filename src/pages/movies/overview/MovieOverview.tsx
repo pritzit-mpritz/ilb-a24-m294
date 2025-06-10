@@ -1,11 +1,26 @@
 import React from 'react';
 import {useMovieOverviewData} from "./useMovieOverviewData.ts";
-import {Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    IconButton,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow
+} from "@mui/material";
 import type {MovieTableRowProps} from "./MovieTypes.ts";
 import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
+import MovieForm from "../../../components/movies/form/MovieForm.tsx";
 
 const MovieOverview: React.FC = () => {
-    const {movies, navigateToNewMovie, deleteMovie} = useMovieOverviewData();
+    const {movies, dialogOpen, onMovieSaved, setDialogOpen, deleteMovie} = useMovieOverviewData();
 
     /**
      * MovieTableRow is a functional React component used to render a row in a movie table.
@@ -25,12 +40,11 @@ const MovieOverview: React.FC = () => {
                 <TableCell>{movie.genre.join(", ")}</TableCell>
                 <TableCell>{movie.rating}</TableCell>
                 <TableCell>
-                    <Button
+                    <IconButton
                         color={"error"}
-                        variant={"contained"}
-                        onClick={() => deleteMovie(movie.id)}>
-                        DELME
-                    </Button>
+                        onClick={() => deleteMovie(movie.id!)}>
+                        <DeleteIcon/>
+                    </IconButton>
                 </TableCell>
             </TableRow>
         )
@@ -39,7 +53,8 @@ const MovieOverview: React.FC = () => {
     return (
         <div>
             <h1>Movie Overview</h1>
-            <Button variant={"contained"} color="success" startIcon={<AddIcon />} onClick={navigateToNewMovie}>New</Button>
+            <Button variant={"contained"} color="success" startIcon={<AddIcon/>}
+                    onClick={() => setDialogOpen(true)}>New</Button>
             <TableContainer>
                 <Table>
                     <TableHead>
@@ -66,6 +81,16 @@ const MovieOverview: React.FC = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
+            <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}
+                    fullWidth
+                    maxWidth={"xs"}>
+                <DialogTitle>New Movie</DialogTitle>
+                <DialogContent>
+                    <MovieForm onSave={onMovieSaved}/>
+                </DialogContent>
+                <DialogActions>
+                </DialogActions>
+            </Dialog>
         </div>
     );
 };

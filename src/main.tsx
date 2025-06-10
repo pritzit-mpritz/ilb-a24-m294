@@ -12,7 +12,6 @@ import App from "./App.tsx";
 import MovieOverview from "./pages/movies/overview/MovieOverview.tsx";
 import ActorOverview from "./pages/ActorOverview.tsx";
 import DirectorOverview from "./pages/DirectorOverview.tsx";
-import MovieForm from "./pages/movies/form/MovieForm.tsx";
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
@@ -22,7 +21,6 @@ createRoot(document.getElementById('root')!).render(
                     <Route path="" element={<h1>Home</h1>}/>
                     <Route path="movies" >
                         <Route index element={<MovieOverview />} />
-                        <Route path="new" element={<MovieForm />} />
                     </Route>
                     <Route path="actors" element={<ActorOverview />}/>
                     <Route path="directors" element={<DirectorOverview />}/>

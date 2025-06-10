@@ -31,8 +31,8 @@
       "rating": 8.1
     },
     {
-      "id": "72cb",
-      "title": "Titel des Films",
+      "id": "4f5f",
+      "title": "New Movie with DataService",
       "releaseYear": 2025,
       "genre": [],
       "directorId": "",
@@ -40,13 +40,13 @@
       "rating": 10
     },
     {
-      "id": "9b7b",
-      "title": "Test2",
-      "releaseYear": 1900,
+      "id": "ddde",
+      "title": "Neuer Film aus Dialog",
+      "releaseYear": 2025,
       "genre": [],
       "directorId": "",
       "actorIds": [],
-      "rating": 1
+      "rating": 9
     }
   ],
   "directors": [
