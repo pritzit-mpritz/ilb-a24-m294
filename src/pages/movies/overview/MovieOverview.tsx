@@ -17,10 +17,11 @@ import {
 import type {MovieTableRowProps} from "./MovieTypes.ts";
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import MovieForm from "../../../components/movies/form/MovieForm.tsx";
 
 const MovieOverview: React.FC = () => {
-    const {movies, dialogOpen, onMovieSaved, setDialogOpen, deleteMovie} = useMovieOverviewData();
+    const {movies, dialogOpen, editMovieId, onMovieSaved, setDialogOpen, deleteMovie, editMovie} = useMovieOverviewData();
 
     /**
      * MovieTableRow is a functional React component used to render a row in a movie table.
@@ -44,6 +45,11 @@ const MovieOverview: React.FC = () => {
                         color={"error"}
                         onClick={() => deleteMovie(movie.id!)}>
                         <DeleteIcon/>
+                    </IconButton>
+                    <IconButton
+                        color={"primary"}
+                        onClick={() => editMovie(movie.id!)}>
+                        <EditIcon />
                     </IconButton>
                 </TableCell>
             </TableRow>
@@ -84,9 +90,9 @@ const MovieOverview: React.FC = () => {
             <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}
                     fullWidth
                     maxWidth={"xs"}>
-                <DialogTitle>New Movie</DialogTitle>
+                <DialogTitle>{editMovieId ? "Edit Movie" : "New Movie"}</DialogTitle>
                 <DialogContent>
-                    <MovieForm onSave={onMovieSaved}/>
+                    <MovieForm onSave={onMovieSaved} movieId={editMovieId}/>
                 </DialogContent>
                 <DialogActions>
                 </DialogActions>

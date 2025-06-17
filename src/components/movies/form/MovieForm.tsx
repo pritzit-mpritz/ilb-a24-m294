@@ -1,14 +1,10 @@
 import React from 'react';
-import {useMovieForm} from "./useMovieForm.ts";
+import {type MovieFormProps, useMovieForm} from "./useMovieForm.ts";
 import {Button, Stack, TextField} from "@mui/material";
-import type {Movie} from "../../../pages/movies/overview/MovieTypes.ts";
 
-interface MovieFormProps {
-    onSave: (movie: Movie) => void;
-}
+const MovieForm: React.FC<MovieFormProps> = ({onSave, movieId}) => {
+    const {movie, handleChange, handleSubmit} = useMovieForm({onSave, movieId});
 
-const MovieForm: React.FC<MovieFormProps> = ({onSave}) => {
-    const {movie, handleChange, handleSubmit} = useMovieForm({onSave});
     return (
         <div style={{padding: "0.5em"}}>
             <Stack direction={"column"} spacing={2} justifyContent={"start"} alignItems={"start"}>

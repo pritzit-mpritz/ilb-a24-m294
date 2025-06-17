@@ -12,11 +12,18 @@ import {deleteMovieById, getMovies} from "../../../data/movies/MovieDataService.
 export const useMovieOverviewData = (): MovieOverviewData => {
     const [movies, setMovies] = useState<Movie[] | null>(null);
     const [dialogOpen, setDialogOpen] = useState(false);
+    const [editMovieId, setEditMovieId] = useState<string | undefined>();
+
     const navigate = useNavigate();
 
     useEffect(() => {
         fetchMovies();
     }, []);
+
+    useEffect(() => {
+        if(!dialogOpen)
+            setEditMovieId(undefined);
+    }, [dialogOpen]);
 
     /**
      * Fetches movies from a specified API endpoint and updates the state with the fetched data.
@@ -49,10 +56,16 @@ export const useMovieOverviewData = (): MovieOverviewData => {
         }
     }
 
+    async function editMovie(id: string) {
+        console.log("Editing Movie " + id);
+        setEditMovieId(id);
+        setDialogOpen(true);
+    }
+
     async function onMovieSaved() {
         setDialogOpen(false);
         await fetchMovies();
     }
 
-    return {movies, dialogOpen, setDialogOpen, onMovieSaved, fetchMovies, navigateToNewMovie, deleteMovie};
+    return {movies, dialogOpen, editMovieId, setDialogOpen, onMovieSaved, fetchMovies, navigateToNewMovie, deleteMovie, editMovie};
 }

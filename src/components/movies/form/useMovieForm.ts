@@ -1,5 +1,5 @@
-import {useState} from "react";
-import {createMovie} from "../../../data/movies/MovieDataService.ts";
+import {useEffect, useState} from "react";
+import {createMovie, getMovieById, updateMovie} from "../../../data/movies/MovieDataService.ts";
 import type {Movie} from "../../../pages/movies/overview/MovieTypes.ts";
 
 const defaultInput = {
@@ -12,8 +12,32 @@ const defaultInput = {
     rating: 0
 };
 
-export const useMovieForm = ({onSave}: {onSave: (movie:Movie) => void | Promise<void>}) => {
+export interface MovieFormProps {
+    onSave: (movie: Movie) => void;
+    movieId?: string;
+}
+
+export const useMovieForm = ({onSave, movieId}: MovieFormProps) => {
     const [movie, setMovie] = useState<Movie>(defaultInput);
+
+    useEffect(() => {
+        if(movieId) {
+            fetchMovie();
+        }
+        else {
+            setMovie(defaultInput);
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [movieId]);
+
+    const fetchMovie = async () => {
+        if (movieId) {
+            console.log("Fetching movie " + movieId);
+            const fetchedMovie = await getMovieById(movieId);
+            setMovie(fetchedMovie ?? defaultInput);
+        }
+    }
 
     const handleChange = (key: keyof Movie, value: unknown) => {
         setMovie({...movie, [key]: value})
@@ -35,7 +59,13 @@ export const useMovieForm = ({onSave}: {onSave: (movie:Movie) => void | Promise<
         }
 
         try {
-            const newMovie = await createMovie(movie);
+            let newMovie;
+            if (movieId) {
+                newMovie = await updateMovie(movie.id!, movie);
+            }
+            else {
+              newMovie = await createMovie(movie);
+            }
             console.log(newMovie);
             setMovie(defaultInput);
 

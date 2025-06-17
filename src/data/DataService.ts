@@ -1,41 +1,36 @@
-export async function performGet(url: string) {
-    const response = await fetch(url);
-    if (!response.ok) {
-        throw new Error("Error fetching from " + url + ": " + response.status + "");
-    }
-    const data = await response.json();
-    console.log("Fetched data: ", data);
-    return data;
-}
-
-export async function performPost(url: string, data: unknown) {
-    const jsonString = JSON.stringify(data);
+async function performRequest(method: "POST" | "PUT" | "GET" | "DELETE", url: string, data: unknown | undefined = undefined) {
+    const jsonString = data ? JSON.stringify(data) : undefined;
 
     console.log(jsonString);
     const result = await fetch(url, {
-        method: "POST",
+        method: method,
         headers: {
             "Content-Type": "application/json"
         },
         body: jsonString
     })
 
-    if(!result){
-        console.error(`Error posting to [${url}]: ${result}`, data);
-        throw new Error("Error posting to " + url);
+    if (!result) {
+        const message = `Error executing request to [${method}] [${url}]: ${result}`;
+        console.error(message, data);
+        throw new Error(message);
     }
 
     return await result.json();
 }
 
+export async function performGet(url: string) {
+    return await performRequest("GET", url);
+}
+
+export async function performPost(url: string, data: unknown) {
+    return await performRequest("POST", url, data);
+}
+
+export async function performPut(url: string, data: unknown) {
+    return await performRequest("PUT", url, data);
+}
+
 export async function performDelete(url: string) {
-    const response = await fetch(url, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    });
-    if (!response.ok) {
-        throw new Error("Error deleting from " + url + ": " + response.status + "");
-    }
+    return await performRequest("DELETE", url);
 }

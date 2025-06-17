@@ -1,6 +1,9 @@
 import React from 'react';
 import {
-    Button, Dialog, DialogActions, DialogContent,
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
     DialogTitle,
     IconButton,
     Table,
@@ -36,13 +39,16 @@ const ActorOverview: React.FC = () => {
     return (
         <div>
             <h1>Actor Overview</h1>
-            <Button variant={"contained"} onClick={() => setDialogOpen(true)} color="success" startIcon={<AddIcon />}>New</Button>
+            <Button variant={"contained"} onClick={() => setDialogOpen(true)} color="success"
+                    startIcon={<AddIcon/>}>New</Button>
             <TableContainer>
                 <Table>
                     <TableHead>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell></TableCell>
+                        <TableRow>
+                            <TableCell>ID</TableCell>
+                            <TableCell>Name</TableCell>
+                            <TableCell></TableCell>
+                        </TableRow>
                     </TableHead>
                     <TableBody>
                         {actors.map(actor => <ActorTableRow key={actor.id} actor={actor}/>)}
