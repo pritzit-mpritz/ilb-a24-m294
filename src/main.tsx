@@ -10,7 +10,7 @@ import '@fontsource/roboto/700.css';
 import {BrowserRouter, Route, Routes} from "react-router";
 import App from "./App.tsx";
 import MovieOverview from "./pages/movies/overview/MovieOverview.tsx";
-import ActorOverview from "./pages/ActorOverview.tsx";
+import ActorOverview from "./pages/actor/overview/ActorOverview.tsx";
 import DirectorOverview from "./pages/DirectorOverview.tsx";
 
 createRoot(document.getElementById('root')!).render(

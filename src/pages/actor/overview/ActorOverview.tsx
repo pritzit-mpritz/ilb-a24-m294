@@ -1,0 +1,66 @@
+import React from 'react';
+import {
+    Button, Dialog, DialogActions, DialogContent,
+    DialogTitle,
+    IconButton,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow
+} from "@mui/material";
+import type {Actor} from "./ActorType.ts";
+import {useActorOverview} from "./useActorOverview.ts";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
+import ActorForm from "../../../components/actors/form/ActorForm.tsx";
+
+const ActorOverview: React.FC = () => {
+    const {actors, deleteActor, dialogOpen, setDialogOpen, onActorSaved} = useActorOverview();
+
+    const ActorTableRow = ({actor}: { actor: Actor }) =>
+        (<TableRow>
+                <TableCell>{actor.id}</TableCell>
+                <TableCell>{actor.name}</TableCell>
+                <TableCell>
+                    <IconButton
+                        color={"error"}
+                        onClick={() => deleteActor(actor.id!)}>
+                        <DeleteIcon/>
+                    </IconButton>
+                </TableCell>
+            </TableRow>
+        )
+
+    return (
+        <div>
+            <h1>Actor Overview</h1>
+            <Button variant={"contained"} onClick={() => setDialogOpen(true)} color="success" startIcon={<AddIcon />}>New</Button>
+            <TableContainer>
+                <Table>
+                    <TableHead>
+                        <TableCell>ID</TableCell>
+                        <TableCell>Name</TableCell>
+                        <TableCell></TableCell>
+                    </TableHead>
+                    <TableBody>
+                        {actors.map(actor => <ActorTableRow key={actor.id} actor={actor}/>)}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}
+                    fullWidth
+                    maxWidth={"xs"}>
+                <DialogTitle>New Actor</DialogTitle>
+                <DialogContent>
+                    <ActorForm onSave={onActorSaved}/>
+                </DialogContent>
+                <DialogActions>
+                </DialogActions>
+            </Dialog>
+        </div>
+    );
+};
+
+export default ActorOverview;
