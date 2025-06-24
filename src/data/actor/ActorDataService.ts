@@ -1,4 +1,4 @@
-import {performDelete, performGet, performPost} from "../DataService.ts";
+import {performDelete, performGet, performPost, performPut} from "../DataService.ts";
 import type {Actor} from "../../pages/actor/overview/ActorType.ts";
 
 const BaseUrl = `${import.meta.env.VITE_BASE_API}/actors`;
@@ -19,6 +19,25 @@ export const getActorById = async (id: string): Promise<Actor | null> => {
         console.error(error);
     }
     return null;
+}
+
+export const getActorListById = async (id: string[]): Promise<Actor[] | null> => {
+    const actorIds: string[] = id.map((id) => `id=${id}`);
+    try{
+        return await performGet(`${BaseUrl}?${actorIds.join('&')}`);
+    } catch (error) {
+        console.error(error);
+    }
+    return null;
+}
+
+export const updateActor = async (actor: Actor): Promise<Actor | null> => {
+    try{
+        return await performPut(`${BaseUrl}/${actor.id}`, actor);
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
 }
 
 export const createActor = async (actor: Actor): Promise<Actor | null> => {

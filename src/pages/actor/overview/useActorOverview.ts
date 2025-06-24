@@ -5,6 +5,7 @@ import {deleteActorById, getActors} from "../../../data/actor/ActorDataService.t
 export const useActorOverview = () => {
     const [actors, setActors] = useState<Actor[]>([]);
     const [dialogOpen, setDialogOpen] = useState(false);
+    const [editActorId, setEditActorId] = useState<string | undefined>();
 
     useEffect(() => {
         fetchActors();
@@ -23,10 +24,16 @@ export const useActorOverview = () => {
         await fetchActors();
     }
 
+    const editActor = async (id: string) => {
+        console.log("Editing Actor " + id);
+        setEditActorId(id);
+        setDialogOpen(true);
+    }
+
     const onActorSaved = async () => {
         setDialogOpen(false);
         await fetchActors();
     }
 
-    return {actors, deleteActor, dialogOpen, setDialogOpen, onActorSaved};
+    return {actors, deleteActor, dialogOpen, setDialogOpen, onActorSaved, editActorId, editActor};
 }

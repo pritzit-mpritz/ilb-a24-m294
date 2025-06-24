@@ -46,7 +46,7 @@
       "genre": [],
       "directorId": "",
       "actorIds": [],
-      "rating": 10
+      "rating": 9.5
     }
   ],
   "directors": [
@@ -78,7 +78,7 @@
     },
     {
       "id": "332e",
-      "name": "Test 2"
+      "name": "Test 123"
     }
   ],
   "reviews": [

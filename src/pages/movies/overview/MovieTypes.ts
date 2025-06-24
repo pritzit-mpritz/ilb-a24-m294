@@ -17,7 +17,8 @@ export interface MovieOverviewData {
     fetchMovies: () => void | Promise<void>,
     deleteMovie: (id: string) => void | Promise<void>,
     editMovie: (id: string) => void | Promise<void>,
-    navigateToNewMovie: () => void | Promise<void>
+    navigateToNewMovie: () => void | Promise<void>,
+    handleDoubleClick: (id: string) => void | Promise<void>,
 }
 
 export interface MovieTableRowProps {

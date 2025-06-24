@@ -21,7 +21,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import MovieForm from "../../../components/movies/form/MovieForm.tsx";
 
 const MovieOverview: React.FC = () => {
-    const {movies, dialogOpen, editMovieId, onMovieSaved, setDialogOpen, deleteMovie, editMovie} = useMovieOverviewData();
+    const {movies, dialogOpen, editMovieId, onMovieSaved, setDialogOpen, deleteMovie, editMovie, handleDoubleClick} = useMovieOverviewData();
 
     /**
      * MovieTableRow is a functional React component used to render a row in a movie table.
@@ -35,7 +35,7 @@ const MovieOverview: React.FC = () => {
      */
     const MovieTableRow: React.FC<MovieTableRowProps> = ({movie}: MovieTableRowProps): React.ReactElement => {
         return (
-            <TableRow key={movie.id}>
+            <TableRow key={movie.id} onDoubleClick={() => handleDoubleClick(movie.id!)}>
                 <TableCell>{movie.title}</TableCell>
                 <TableCell>{movie.releaseYear}</TableCell>
                 <TableCell>{movie.genre.join(", ")}</TableCell>

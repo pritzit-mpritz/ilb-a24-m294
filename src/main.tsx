@@ -12,6 +12,7 @@ import App from "./App.tsx";
 import MovieOverview from "./pages/movies/overview/MovieOverview.tsx";
 import ActorOverview from "./pages/actor/overview/ActorOverview.tsx";
 import DirectorOverview from "./pages/DirectorOverview.tsx";
+import MovieDetails from "./pages/movies/details/MovieDetails.tsx";
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
@@ -21,6 +22,7 @@ createRoot(document.getElementById('root')!).render(
                     <Route path="" element={<h1>Home</h1>}/>
                     <Route path="movies" >
                         <Route index element={<MovieOverview />} />
+                        <Route path={":id"} element={<MovieDetails />} />
                     </Route>
                     <Route path="actors" element={<ActorOverview />}/>
                     <Route path="directors" element={<DirectorOverview />}/>

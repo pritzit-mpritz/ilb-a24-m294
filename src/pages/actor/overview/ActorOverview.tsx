@@ -16,11 +16,12 @@ import {
 import type {Actor} from "./ActorType.ts";
 import {useActorOverview} from "./useActorOverview.ts";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
 import ActorForm from "../../../components/actors/form/ActorForm.tsx";
 
 const ActorOverview: React.FC = () => {
-    const {actors, deleteActor, dialogOpen, setDialogOpen, onActorSaved} = useActorOverview();
+    const {actors, deleteActor, dialogOpen, setDialogOpen, onActorSaved, editActor, editActorId} = useActorOverview();
 
     const ActorTableRow = ({actor}: { actor: Actor }) =>
         (<TableRow>
@@ -31,6 +32,9 @@ const ActorOverview: React.FC = () => {
                         color={"error"}
                         onClick={() => deleteActor(actor.id!)}>
                         <DeleteIcon/>
+                    </IconButton>
+                    <IconButton onClick={() => editActor(actor.id!)}>
+                        <EditIcon/>
                     </IconButton>
                 </TableCell>
             </TableRow>
@@ -60,7 +64,7 @@ const ActorOverview: React.FC = () => {
                     maxWidth={"xs"}>
                 <DialogTitle>New Actor</DialogTitle>
                 <DialogContent>
-                    <ActorForm onSave={onActorSaved}/>
+                    <ActorForm onSave={onActorSaved} actorId={editActorId}/>
                 </DialogContent>
                 <DialogActions>
                 </DialogActions>

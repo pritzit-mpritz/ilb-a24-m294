@@ -67,5 +67,9 @@ export const useMovieOverviewData = (): MovieOverviewData => {
         await fetchMovies();
     }
 
-    return {movies, dialogOpen, editMovieId, setDialogOpen, onMovieSaved, fetchMovies, navigateToNewMovie, deleteMovie, editMovie};
+    async function handleDoubleClick(id: string) {
+        navigate(`/movies/${id}`);
+    }
+
+    return {movies, dialogOpen, editMovieId, setDialogOpen, onMovieSaved, fetchMovies, navigateToNewMovie, deleteMovie, editMovie, handleDoubleClick};
 }

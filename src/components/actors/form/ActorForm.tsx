@@ -2,8 +2,8 @@ import React from 'react';
 import {type ActorFormProps, useActorForm} from "./useActorForm.ts";
 import {Button, Stack, TextField} from "@mui/material";
 
-const ActorForm: React.FC<ActorFormProps> = ({onSave}) => {
-    const {actorInput, handleChange, handleSubmit} = useActorForm({onSave});
+const ActorForm: React.FC<ActorFormProps> = ({onSave, actorId}) => {
+    const {actorInput, handleChange, handleSubmit} = useActorForm({onSave, actorId});
     return (
         <Stack direction={"column"} spacing={2} justifyContent={"start"} alignItems={"start"} style={{padding: "0.5em"}}>
             <TextField label={"Name"}
